@@ -5,18 +5,53 @@
  */
 
 import React, { Component } from 'react';
-import Login from "./App/components/Login.js"
+import Storage from 'react-native-storage';
 import {
   AppRegistry,
   StyleSheet,
+  Navigator,
   Text,
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
 
+var storage = new Storage({
+  size: 4000,
+  storageBackend: AsyncStorage,
+  defaultExpires: null,
+  enableCache: true,
+
+})
+
+global.storage = storage;
+
+import SplashScreen from "./App/components/SplashScreen.js"
+import Login from "./App/components/Login.js";
+import Dashboard from "./App/components/Dashboard.js";
+
+//NOTE: we cannot use the import { Login, Dashboard } from "./App/components/Login.js"
+//      because we are doing an export defaults see : http://stackoverflow.com/questions/31852933/why-es6-react-component-works-only-with-export-default
+
 export default class SchoolDiary extends Component {
+  renderScene(route,navigator) {
+    if(route.name === 'Splash') {
+      component = <SplashScreen navigator={navigator} />
+    }
+    if(route.name === 'Login') {
+      component = <Login navigator={navigator} />
+    }
+    if(route.name === 'Dashboard') {
+      component = <Dashboard navigator={navigator} current_user={route.current_user} />
+    }
+    return component
+  }
+
   render() {
     return (
-        <Login />
+        <Navigator
+          initialRoute={{ name: "Splash" }}
+          renderScene={ this.renderScene.bind(this) }
+        />
     );
   }
 }
