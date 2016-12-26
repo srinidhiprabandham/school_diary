@@ -84,7 +84,7 @@ export default class Login extends Component {
       method: "POST",
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         login: this.state.login,
@@ -93,7 +93,6 @@ export default class Login extends Component {
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson)
       //If success full login then save user info and continue
       if(responseJson.status == 0) {
         this.onLogin(responseJson);
@@ -104,6 +103,7 @@ export default class Login extends Component {
       }
     })
     .catch((error) => {
+      debugger;
       Alert.alert("Opps something went wrong - from here !!");
     })
   }

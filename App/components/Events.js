@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
 import {
-  Card
-} from 'react-native-material-design';
-
-import {
   View,
   Text,
   StyleSheet,
-  Alert
+  Alert,
+  ToastAndroid,
+  ActivityIndicator
 } from 'react-native';
+
+import Event from './Event.js';
 
 export default class Events extends Component {
   constructor(props) {
@@ -31,11 +31,10 @@ export default class Events extends Component {
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.status == 0) {
-        console.log("Got response from server");
         this.setState({events: responseJson.events});
       }
       if(responseJson.status == 1) {
-        Alert.alert("Opps some thing went wrong !!")
+        ToastAndroid.showWithGravity(responseJson.message,ToastAndroid.SHORT,ToastAndroid.BOTTOM);
       }
     })
     .catch((error) => {
@@ -45,16 +44,14 @@ export default class Events extends Component {
 
   render() {
     if(this.state.events == null) {
-      return null;
+      return <ActivityIndicator animating={true} style={{alignItems: 'center',justifyContent: 'center',padding: 8,height: 80}} size="large" />
     }
     return (
       <View>
         {
-          this.state.events.map(function(event,index) {
+          this.state.events.map(function(evnt,index) {
             return (
-              <Card key={index}>
-                <Text>{event}</Text>
-              </Card>
+              <Event key={index} evnt={evnt} />
             )
           })
         }

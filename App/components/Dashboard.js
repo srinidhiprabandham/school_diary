@@ -6,11 +6,15 @@ import {
 } from 'react-native-material-design';
 
 import {
-  View,
+  ScrollView,
   Text,
   Navigator,
   DrawerLayoutAndroid
 } from 'react-native';
+
+//Again Since the user has done a export Defaults
+//for this one. We have to import it like below.
+import Hr from 'react-native-hr';
 
 import Events from "./Events.js";
 import SideMenu from "./SideMenu.js";
@@ -38,7 +42,10 @@ export default class Dashboard extends Component {
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => navigationView}>
 
-        <Events current_user={this.props.current_user} />
+        <ScrollView>
+          <Hr lineColor='#b3b3b3' text='Events' textColor='steelblue' />
+          <Events current_user={this.props.current_user} />
+        </ScrollView>
       </DrawerLayoutAndroid>
     )
   }

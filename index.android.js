@@ -12,7 +12,7 @@ import {
   Navigator,
   Text,
   View,
-  AsyncStorage
+  AsyncStorage,
 } from 'react-native';
 
 var storage = new Storage({
@@ -28,6 +28,7 @@ global.storage = storage;
 import SplashScreen from "./App/components/SplashScreen.js"
 import Login from "./App/components/Login.js";
 import Dashboard from "./App/components/Dashboard.js";
+import ServerStats from './App/components/ServerStats.js';
 
 //NOTE: we cannot use the import { Login, Dashboard } from "./App/components/Login.js"
 //      because we are doing an export defaults see : http://stackoverflow.com/questions/31852933/why-es6-react-component-works-only-with-export-default
@@ -43,16 +44,19 @@ export default class SchoolDiary extends Component {
     if(route.name === 'Dashboard') {
       component = <Dashboard navigator={navigator} current_user={route.current_user} />
     }
+    if(route.name === 'ServerStats') {
+      component = <ServerStats navigator={navigator} current_user={route.current_user} />
+    }
     return component
   }
 
   render() {
     return (
-        <Navigator
-          initialRoute={{ name: "Splash" }}
-          renderScene={ this.renderScene.bind(this) }
-        />
-    );
+      <Navigator
+        initialRoute={{ name: "Splash" }}
+        renderScene={ this.renderScene.bind(this) }
+      />
+    )
   }
 }
 
