@@ -15,3 +15,13 @@ export function GenerateEventStyle(color) {
     borderLeftColor: color,
   }
 }
+
+export function Contains(array, obj) {
+    var i = array.length;
+    while (i--) {
+       if (a[i] === obj) {
+           return true;
+       }
+    }
+    return false;
+}

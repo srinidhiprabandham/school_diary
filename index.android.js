@@ -20,7 +20,6 @@ var storage = new Storage({
   storageBackend: AsyncStorage,
   defaultExpires: null,
   enableCache: true,
-
 })
 
 global.storage = storage;

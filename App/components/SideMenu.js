@@ -17,6 +17,8 @@ import {
   TYPO,
 } from 'react-native-material-design';
 
+import Contains from '../utils/HelperFunctions.js';
+
 export default class SideMenu extends Component {
   constructor(props) {
     super(props);
@@ -69,21 +71,8 @@ export default class SideMenu extends Component {
           </View>
         </Drawer.Header>
 
-        <Drawer.Section items={[{
-            icon: 'home',
-            value: 'Dashboard',
-            onPress: () => this.navigateTo("Dashboard"),
-            onLongPress: () => this.navigateTo("Dashboard")
-          }]}
-        />
-        <Drawer.Section syle={styles.logout}
-          items={[{
-            icon: 'power',
-            value: 'ServerStats',
-            onPress: () => this.navigateTo("ServerStats"),
-            onLongPress: () => this.navigateTo("ServerStats")
-          }]}
-        />
+        <Drawer.Section items={[{ icon: 'home', value: 'Dashboard', onPress: () => this.navigateTo("Dashboard"), onLongPress: () => this.navigateTo("Dashboard") }]} />
+        <Drawer.Section items={[{ icon: 'power',value: 'ServerStats', onPress: () => this.navigateTo("ServerStats"), onLongPress: () => this.navigateTo("ServerStats") }]} />
         <Divider />
         {/*All these also should be based on the roles*/}
         <Drawer.Section items={[]} />
