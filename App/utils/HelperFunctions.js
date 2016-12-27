@@ -25,3 +25,30 @@ export function Contains(array, obj) {
     }
     return false;
 }
+
+export function GetRequest(path,token) {
+  var request_url = "https://schooldiary.online/api/" + path;
+  return fetch(request_url, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": token,
+    }
+  })
+}
+
+export function PostRequest(path,body,auth_token) {
+  var request_url = "https://schooldiary.online/api/" + path;
+  var request_body = body ? body : {  }
+
+  return fetch(request_url, {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": auth_token,
+    },
+    body: JSON.stringify(request_body)
+  })
+}

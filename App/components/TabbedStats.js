@@ -7,6 +7,7 @@ import {
   Alert,
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
+import { Request } from '../utils/HelperFunctions.js';
 
 import {
   Card,
@@ -22,14 +23,7 @@ export default class TabbedStats extends Component {
   }
 
   componentDidMount() {
-    fetch("https://schooldiary.online/api/admin/server_stats", {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization": this.props.current_user.auth_token,
-      }
-    })
+    Request("GET","server_stats",{},this.props.current_user.auth_token)
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.status == 0) {

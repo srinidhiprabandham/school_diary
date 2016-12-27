@@ -17,6 +17,8 @@ import {
   Navigator,
 } from 'react-native';
 
+import { PostRequest } from '../utils/HelperFunctions.js';
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -80,17 +82,7 @@ export default class Login extends Component {
   }
 
   submitLogin(e) {
-    fetch("https://schooldiary.online/api/validate_user", {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        login: this.state.login,
-        password: this.state.password,
-      })
-    })
+    PostRequest("validate_user",this.state,null)
     .then((response) => response.json())
     .then((responseJson) => {
       //If success full login then save user info and continue

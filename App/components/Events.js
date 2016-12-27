@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import Event from './Event.js';
+import { GetRequest } from "../utils/HelperFunctions.js";
 
 export default class Events extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class Events extends Component {
   }
 
   componentDidMount() {
+    GetRequest("events",this.props.current_user.auth_token)
     fetch("https://schooldiary.online/api/admin/events", {
       method: "GET",
       headers: {
