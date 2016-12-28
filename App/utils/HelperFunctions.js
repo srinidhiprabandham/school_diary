@@ -26,29 +26,49 @@ export function Contains(array, obj) {
     return false;
 }
 
-export function GetRequest(path,token) {
-  var request_url = "https://schooldiary.online/api/" + path;
-  return fetch(request_url, {
-    method: "GET",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-      "Authorization": token,
-    }
-  })
+export var RequestApi = {
+  get: function(path,token) {
+    var request_url = "https://schooldiary.online/api/" + path;
+
+    return fetch(request_url, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": token,
+      },
+    })
+  },
+  post: function(path,body,token) {
+    var request_url = "https://schooldiary.online/api/" + path;
+    var request_body = body ? body : {  }
+
+    return fetch(request_url, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": token,
+      },
+      body: JSON.stringify(request_body)
+    })
+  },
 }
 
-export function PostRequest(path,body,auth_token) {
-  var request_url = "https://schooldiary.online/api/" + path;
-  var request_body = body ? body : {  }
+export function CurrentDate() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
 
-  return fetch(request_url, {
-    method: "POST",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-      "Authorization": auth_token,
-    },
-    body: JSON.stringify(request_body)
-  })
+  if(dd<10) {
+      dd='0'+dd
+  } 
+
+  if(mm<10) {
+      mm='0'+mm
+  } 
+
+  var today = yyyy+'-'+mm+'-'+dd;
+  return today
 }

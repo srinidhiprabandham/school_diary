@@ -41,6 +41,9 @@ export default class Menu extends Component {
       case 'LeavePlan':
         this.props.navigator.immediatelyResetRouteStack([{ name: "LeavePlan", current_user: this.props.current_user }]);
         break;
+      case 'Profile':
+        this.props.navigator.immediatelyResetRouteStack([{ name: "Profile", current_user: this.props.current_user }]);
+        break;
       case 'Logout':
         this.logout();
         break;
@@ -51,6 +54,12 @@ export default class Menu extends Component {
 
   renderScene(route,navigator) {
     //TODO this has to come dynamically
+    var user_stuff = [{
+      title: "User Profile",
+      path: "Profile",
+      icon: "account-circle",
+    }];
+
     var routes = [{
       title: "Dashboard",
       path: "Dashboard",
@@ -72,16 +81,20 @@ export default class Menu extends Component {
       icon: "power-settings-new",
     }];
     return(
-      <ScrollView>
+      <ScrollView style={styles.sidebar}>
         {/*Again this dummy thing has to be there other wise below things wont be shown */}
         <Text> </Text>
-        <View style={styles.sidemenu_header}>
-          <Text> </Text>
-          <Text> </Text>
-          <Text> </Text>
-          <Text> </Text>
-          <Text style={{color: 'white'}}> Welcome {this.props.current_user.full_name} !! </Text>
-        </View>
+        <Text style={styles.sidelabel}> Profile </Text>
+        <List>
+          {
+            user_stuff.map((item,i) => (
+                <ListItem key={i} title={item.title} leftIcon={{name: item.icon}} onPress={() => this.navigateTo(item.path)}/>
+            ))
+          }
+        </List>
+
+        <Text style={styles.sidelabel}> Menus </Text>
+
         <List>
           {
             routes.map((item,i) => (
@@ -98,7 +111,7 @@ const styles = {
     header: {
         paddingTop: 16
     },
-    text: {
+    sidelabel: {
         marginTop: 20
     },
     logout: {
@@ -108,5 +121,8 @@ const styles = {
     sidemenu_header: {
       backgroundColor: "#009688",
       height: 100
+    },
+    sidebar: {
+      backgroundColor: "#f0f0f0",
     }
 };

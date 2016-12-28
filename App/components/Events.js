@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import Event from './Event.js';
-import { GetRequest } from "../utils/HelperFunctions.js";
+import { RequestApi } from "../utils/HelperFunctions.js";
 
 export default class Events extends Component {
   constructor(props) {
@@ -21,15 +21,7 @@ export default class Events extends Component {
   }
 
   componentDidMount() {
-    GetRequest("events",this.props.current_user.auth_token)
-    fetch("https://schooldiary.online/api/admin/events", {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization": this.props.current_user.auth_token,
-      }
-    })
+    RequestApi.get("admin/events",this.props.current_user.auth_token)
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.status == 0) {
@@ -38,9 +30,12 @@ export default class Events extends Component {
       if(responseJson.status == 1) {
         ToastAndroid.showWithGravity(responseJson.message,ToastAndroid.SHORT,ToastAndroid.BOTTOM);
       }
+      if(responseJson.status == "404") {
+        Alert.alert("Server responded with a 404 !!!");
+      }
     })
     .catch((error) => {
-      Alert.alert("Opps some thing went wrong !!")
+      Alert.alert("Opps some thing went wrong !!");
     })
   }
 

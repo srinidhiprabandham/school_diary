@@ -7,7 +7,7 @@ import {
   Alert,
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
-import { Request } from '../utils/HelperFunctions.js';
+import { RequestApi } from '../utils/HelperFunctions.js';
 
 import {
   Card,
@@ -23,7 +23,7 @@ export default class TabbedStats extends Component {
   }
 
   componentDidMount() {
-    Request("GET","server_stats",{},this.props.current_user.auth_token)
+    RequestApi.get("admin/server_stats",this.props.current_user.auth_token)
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.status == 0) {
@@ -31,6 +31,9 @@ export default class TabbedStats extends Component {
       }
       if(responseJson.status == 1) {
         ToastAndroid.showWithGravity(responseJson.message,ToastAndroid.SHORT,ToastAndroid.BOTTOM);
+      }
+      if(responseJson.status == "404") {
+        Alert.alert("Server responded with a 404 !!!");
       }
     })
     .catch((error) => {

@@ -30,6 +30,7 @@ import Login from "./App/components/Login.js";
 import Dashboard from "./App/components/Dashboard.js";
 import ServerStats from './App/components/ServerStats.js';
 import LeavePlan from './App/components/LeavePlan.js';
+import Profile from './App/components/Profile.js';
 
 //NOTE: we cannot use the import { Login, Dashboard } from "./App/components/Login.js"
 //      because we are doing an export defaults see : http://stackoverflow.com/questions/31852933/why-es6-react-component-works-only-with-export-default
@@ -50,6 +51,9 @@ export default class SchoolDiary extends Component {
     }
     if(route.name === 'LeavePlan') {
       component = <LeavePlan navigator={navigator} current_user={route.current_user} />
+    }
+    if(route.name === "Profile") {
+      component = <Profile navigator={navigator} current_user={route.current_user} />
     }
     return component
   }

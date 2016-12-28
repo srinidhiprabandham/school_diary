@@ -46,7 +46,7 @@ export default class Layout extends Component {
     return (
       <SideMenu menu={menu} isOpen={this.state.isOpen}>
         {/*These background color should come from API*/}
-        <View style={{backgroundColor: "#fdfdfd"}}>
+        <View style={{backgroundColor: "#fdfdfd",flex: 1}}>
           <StatusBar backgroundColor={"#009688"} translucent={true} />
           {/* This has to be there other wise the first child will not be shown for some reason */}
           <Text> </Text>
@@ -55,7 +55,7 @@ export default class Layout extends Component {
               <Icon name="menu" color="#000000" style={{marginTop: 10}}/>
             </IconToggle>}
           />
-          <Hr lineColor='#009688' />
+          {/*<Hr lineColor='#009688' />*/}
           {this.props.children}
         </View>
       </SideMenu>

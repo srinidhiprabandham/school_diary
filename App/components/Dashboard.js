@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-
-import {
-  Icon,
-} from 'react-native-material-design';
-
-import {
-  Navigator,
-} from 'react-native';
-
+import { Icon } from 'react-native-material-design';
+import { Navigator } from 'react-native';
 //Again Since the user has done a export Defaults
 //for this one. We have to import it like below.
 import Layout from "./Layout.js";

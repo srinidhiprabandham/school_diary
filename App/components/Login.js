@@ -17,7 +17,7 @@ import {
   Navigator,
 } from 'react-native';
 
-import { PostRequest } from '../utils/HelperFunctions.js';
+import { RequestApi } from '../utils/HelperFunctions.js';
 
 
 export default class Login extends Component {
@@ -82,14 +82,12 @@ export default class Login extends Component {
   }
 
   submitLogin(e) {
-    PostRequest("validate_user",this.state,null)
+    RequestApi.post("validate_user",this.state,null)
     .then((response) => response.json())
     .then((responseJson) => {
-      //If success full login then save user info and continue
       if(responseJson.status == 0) {
         this.onLogin(responseJson);
       }
-      //TODO show a toast or some thing.
       if(responseJson.status == 1) {
         Alert.alert(responseJson.reason)
       }
